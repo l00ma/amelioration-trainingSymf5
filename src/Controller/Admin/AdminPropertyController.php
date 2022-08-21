@@ -8,6 +8,7 @@ use App\Entity\Property;
 use App\Form\PropertyType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -120,5 +121,23 @@ class AdminPropertyController extends AbstractController
             $this->addFlash('success', 'Bien supprimé avec succès');
         }
         return $this->redirectToRoute('admin.property.index');
+    }
+
+    /**
+     * @Route("/admin/image/delete/{id}", name="admin.image.delete", methods="DELETE")
+     */
+    public function deleteImage(Images $image, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
+            $nom = $image->getName();
+            unlink($this->getParameter('image_directory') . '/' . $nom);
+            #$em = $this->getDoctrine()->getManager();
+            $this->em->remove($image);
+            $this->em->flush();
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token invlide'], 400);
+        }
     }
 }

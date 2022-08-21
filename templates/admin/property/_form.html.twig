@@ -18,7 +18,16 @@
 	<div class="col-md-1">{{ form_row(form.floor) }}</div>
 	<div class="col-md-2">{{ form_row(form.heat) }}</div>
 </div>
-
 {{ form_rest(form) }}
+{% if app.request.attributes.get('_route') == 'admin.property.edit' %}
+	<h4>Images</h4>
+	{% for image in property.images %}
+		<div>
+			<img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+			<a href="{{ path('admin.image.delete', {id: image.id } )}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+		</div>
+	{% endfor %}
+{% endif %}
+
 <button class="btn btn-primary mt-2">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}
