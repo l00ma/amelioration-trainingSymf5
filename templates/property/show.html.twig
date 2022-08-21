@@ -54,12 +54,13 @@
 			</div>
 			<div class="col-md-4">
 				<h2>Spécificités</h2>
-				{% for properties in property.specs %}
-					<div class="col-md-4">
-						-
-						{{ properties.name}}
-					</div>
-				{% endfor %}
+				<div class="card" style="width: 18rem;">
+					<ul class="list-group list-group-flush">
+						{% for spec in property.specs %}
+							<li class="list-group-item">{{ spec.name }}</li>
+						{% endfor %}
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

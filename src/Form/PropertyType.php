@@ -42,6 +42,7 @@ class PropertyType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'accept' => 'image/jpeg',
+                    'class' => 'mt-2',
                 ],
             ]);
     }

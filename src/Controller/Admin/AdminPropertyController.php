@@ -131,7 +131,7 @@ class AdminPropertyController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
             $nom = $image->getName();
-            unlink($this->getParameter('image_directory') . '/' . $nom);
+            unlink($this->getParameter('images_directory') . '/' . $nom);
             #$em = $this->getDoctrine()->getManager();
             $this->em->remove($image);
             $this->em->flush();
