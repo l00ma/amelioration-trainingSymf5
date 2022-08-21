@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title "Gérer les options" %}
+
+{% block body%}
+	<div class="container mt-4">
+		<h1 class="h3 mb-3 font-weight-normal">Gérer les options</h1>
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for spec in specs %}
+					<tr>
+						<td>{{ spec.name }}</td>
+						<td>
+							<a href="{{ path('admin.spec.edit', {id: spec.id}) }}" class="btn btn-secondary">Editer</a>
+
+							<form method="post" action="{{ path('admin.spec.delete', {id: spec.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ spec.id) }}">
+								<button class="btn btn-danger">Supprimer</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-right">
+			<a href="{{ path('admin.spec.new') }}" class="btn btn-primary">Créer une nouvelle option</a>
+		</div>
+	</div>
+{% endblock %}

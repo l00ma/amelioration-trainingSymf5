@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title "Bienvenue sur l\'agence" %}
+
+{% block body%}
+	<div class="jubotron text-center">
+		<h1>Agence immobiliere BIENSAVENDRE</h1>
+		<p>Elle recense tous les biens que vous cherchez.</p>
+	</div>
+
+	<div class="container">
+		<h2>
+			Nos offres les plus récentes:</h2>
+		<div class="row flex">
+			{% for property in properties %}
+				<div class="col-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{ path('property.show', {id: property.id, slug: property.slug})}}">{{ property.title }}</a>
+							</h5>
+							<p class="card-text">{{ property.city }}
+								({{ property.postalCode }})</p>
+							<div class="text-primary" style="font-weight: bold; font-size: 2rem;">{{ property.formattedPrice }}
+								€</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
