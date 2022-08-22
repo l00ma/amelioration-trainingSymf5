@@ -75,7 +75,7 @@ class Property
     #[ORM\ManyToMany(targetEntity: Spec::class, inversedBy: 'properties')]
     private $specs;
 
-    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Images::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Images::class, cascade: ['persist', 'remove'])]
     private $images;
 
     public function __construct()

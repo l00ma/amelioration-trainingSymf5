@@ -7,7 +7,7 @@ Heat: Chauffage
 Floor: Etage
 Address: Adresse
 Postal code: Code Postal
-Sold: Vendu
+Sold: Vendu (ne sera plus publié si la case est cochée)
 Username: Utilisateur
 Password: Mot de passe
 Surface: Surface
@@ -15,4 +15,4 @@ electrique: Electrique
 gaz: Gaz
 fioul: Fioul
 Description: Description
-Specs: Particularités
+Specs: Options

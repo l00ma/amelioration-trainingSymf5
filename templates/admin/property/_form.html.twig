@@ -1,6 +1,7 @@
 {{ form_start(form) }}
+<hr class="border border-primary border-2 opacity-75">
 <div class="row">
-	<div class="col-md-1">{{ form_row(form.sold) }}</div>
+	<div class="col-md-8">{{ form_row(form.sold) }}</div>
 </div>
 <div class="row">
 	<div class="col-md-4">{{ form_row(form.title) }}</div>
@@ -22,16 +23,20 @@
 	<div class="col-md-13">{{ form_row(form.description) }}</div>
 	<div class="col-md-8">{{ form_row(form.specs) }}</div>
 </div>
+<hr class="border border-primary border-2 opacity-75">
 {% if app.request.attributes.get('_route') == 'admin.property.edit' %}
-	<hr class="border border-primary border-3 opacity-75">
 	<div class="col mt-4">
-		<h5>Photos du bien publiées</h5>
-		{% for image in property.images %}
-			<div class="col mt-2">
-				<img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
-				<a href="{{ path('admin.image.delete', {id: image.id } )}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}" class="btn btn-danger">Supprimer</a>
-			</div>
-		{% endfor %}
+		<h5>Photos publiées du bien</h5>
+		{% if property.images is empty %}
+			Aucune photo n'est publiée: Merci d'ajouter des photos.
+		{% else %}
+			{% for image in property.images %}
+				<div class="col mt-2">
+					<img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+					<a href="{{ path('admin.image.delete', {id: image.id } )}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}" class="btn btn-danger">Supprimer la photo</a>
+				</div>
+			{% endfor %}
+		{% endif %}
 	</div>
 {% endif %}
 <div class="col mt-4">
@@ -45,6 +50,6 @@
 	{{ form_rest(form) }}
 </div>
 
-
+<hr class="border border-primary border-2 opacity-75">
 <button class="btn btn-primary mt-2">{{ button|default('Enregistrer') }}</button>
 {{ form_end(form) }}
