@@ -8,16 +8,16 @@
 		{#remplace jumbotron #}
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-7">
 					{% if property.images is empty %}
 						Aucune photo n'est publiée.
 					{% else %}
 						<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 							<div class="carousel-inner">
-								{% for image in property.images %}
 
-									<div class="carousel-item active">
-										<img src="{{ asset('/uploads/' ~ image.name) }}" class="d-block w-100" alt="Image" width="150">
+								{% for image in property.images %}
+									<div class="carousel-item {% if loop.first %}active{% endif %}">
+										<img src="{{ asset('/uploads/' ~ image.name) | imagine_filter('fixe') }}" class="d-block w-100" alt="Image">
 									</div>
 								{% endfor %}
 
@@ -31,9 +31,7 @@
 								<span class="visually-hidden">Next</span>
 							</button>
 						</div>
-
 					{% endif %}
-
 
 				</div>
 				<div class="col-md-4">

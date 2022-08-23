@@ -1,17 +1,25 @@
 <div class="card mb-4">
-	<div class="card-body">
-		<h5 class="card-title">
-			<a href="{{ path('property.show', {slug: property.slug, id: property.id}) }}">
+	<a href="{{ path('property.show', {slug: property.slug, id: property.id}) }}" style="text-decoration:none">
+		{% if property.images is empty %}
+			<img src="{{ asset('/uploads/empty.jpg') | imagine_filter('thumb') }}" class="card-img-top" style="width: 100%; height: auto">
+		{% else %}
+			{% set photo_bien = property.images|first %}
+			<img src="{{ asset('/uploads/' ~ photo_bien.name) | imagine_filter('thumb') }} " class="card-img-top" style="width: 100%; height: auto">
+		{% endif %}
+		<div class="card-body">
+			<h5 class="card-title">
 				{{ property.title }}
-			</a>
-		</h5>
-		{# <p class="card-text">{{ property.description | nl2br }}</p> #}
-		<p class="card-text">{{property.surface}}m² -
-			{{ property.city }}
-			({{ property.postalCode }})</p>
-		<div class="text-primary" style="font-size:2rem; font-weight: bold;">
-			{{ property.formattedPrice }}
-			€
+			</h5>
+			<h6 class="card-subtitle mb-2">{{ property.city }}
+				({{ property.postalCode }})</h6>
+			{% if app.user %}
+				<a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Editer</a>
+			{% endif %}
+			<p class="card-text">{{property.surface}}m²</p>
+			<div class="text-primary" style="font-size:2rem; font-weight: bold;">
+				{{ property.formattedPrice }}
+				€
+			</div>
 		</div>
-	</div>
+	</a>
 </div>

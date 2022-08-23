@@ -49,7 +49,16 @@
 <div class="col mt-4 mb-4">
 	{{ form_rest(form) }}
 </div>
-
 <hr class="border border-primary border-2 opacity-75">
-<button class="btn btn-primary mt-2">{{ button|default('Enregistrer') }}</button>
+<div class="row">
+	<div class="col-md-2">
+		<button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
+	</div>
+	{# <div class="col-md-2">
+			<form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
+				<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}">
+				<button class="btn btn-danger">Supprimer le bien</button>
+			</form>
+		</div> #}
+</div>
 {{ form_end(form) }}
