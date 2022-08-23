@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminPropertyController extends AbstractController
 {
@@ -29,9 +30,14 @@ class AdminPropertyController extends AbstractController
      * @Route("/admin", name="admin.property.index")
      * @return \Symfony\Componenet\HttpFoundation\Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
-        $properties = $this->repository->findAll();
+
+        $properties = $paginator->paginate(
+            $this->repository->findAll(),
+            $request->query->getInt('page', 1),
+            25
+        );
         return $this->render('admin/property/index.html.twig', compact('properties'));
     }
 
@@ -118,9 +124,13 @@ class AdminPropertyController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $property->getId(), $request->get('_token'))) {
             #on recupere les images associées au bien property
             $noms = $property->getImages();
-            foreach ($noms as $nom) {
-                #on recupere le nom des images et on les efface du disque
-                unlink($this->getParameter('images_directory') . '/' . $nom->getName());
+            if ($noms) {
+                foreach ($noms as $nom) {
+                    #on recupere le nom des images et on les efface du disque
+                    if (file_exists($this->getParameter('images_directory') . '/' . $nom->getName())) {
+                        unlink($this->getParameter('images_directory') . '/' . $nom->getName());
+                    }
+                }
             }
             #on supprime le bien de la bdd (les images seront supprimées en même temps grace à la cascade)
             $this->em->remove($property);

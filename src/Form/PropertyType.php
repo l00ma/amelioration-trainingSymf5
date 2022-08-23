@@ -10,7 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\File;
 
 class PropertyType extends AbstractType
 {
@@ -41,9 +43,22 @@ class PropertyType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
-                    'accept' => 'image/jpeg',
                     'class' => 'mt-2',
                 ],
+                'constraints' => [new All(array(
+                    new Image(array(
+                        'minWidth' => 500,
+                        'minHeight' => 350,
+                        'allowPortrait' => false,
+                        'allowPortraitMessage' => 'Les photos doivent être en mode paysage uniquement.',
+                        'mimeTypes' => array(
+                            'image/jpeg',
+                            'image/jpg',
+                        ),
+                        'mimeTypesMessage' => 'Les photos doivent être au format jpeg ou jpg uniquement.',
+                    )),
+                    new File(array('maxSize' => 1024000)),
+                ))],
             ]);
     }
 

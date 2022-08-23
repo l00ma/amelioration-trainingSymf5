@@ -12,6 +12,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>Numero</th>
 					<th>Titre</th>
 					<th>Actions</th>
 				</tr>
@@ -19,6 +20,8 @@
 			<tbody>
 				{% for property in properties %}
 					<tr>
+						<td>#
+							{{ property.id }}</td>
 						<td>{{ property.title }}</td>
 						<td>
 							<a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-secondary">Editer</a>
@@ -34,6 +37,9 @@
 		</table>
 		<div class="text-right">
 			<a href="{{ path('admin.property.new') }}" class="btn btn-primary">Créer un nouveau bien</a>
+		</div>
+		<div class="pagination mt-2">
+			{{ knp_pagination_render(properties) }}
 		</div>
 	</div>
 {% endblock %}

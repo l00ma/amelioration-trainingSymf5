@@ -40,6 +40,8 @@
 						pièces -
 						{{ property.surface }}
 						m²</h2>
+					<h4>{{ property.city }}
+						({{ property.postalCode }})</h4>
 					<div class="text-primary" style="font-size: 4rem; font-weight: bold;">{{ property.formattedPrice }}
 						€</div>
 					<a href="#" class="btn btn-primary">Contacter l'agence</a>
@@ -52,7 +54,7 @@
 		<div class="row">
 			<div class="col-md-8">
 				<h2>Caracteristiques</h2>
-				<table class="table table-stripped">
+				<table class="table table-striped">
 					<tr>
 						<td>surface habitable</td>
 						<td>{{ property.surface }}
