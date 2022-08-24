@@ -13,7 +13,8 @@
 			<h6 class="card-subtitle mb-2">{{ property.city }}
 				({{ property.postalCode }})</h6>
 			{% if app.user %}
-				<a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Editer</a>
+				<a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Editer #
+					{{ property.id }}</a>
 			{% endif %}
 			<p class="card-text">{{property.surface}}m²</p>
 			<div class="text-primary" style="font-size:2rem; font-weight: bold;">

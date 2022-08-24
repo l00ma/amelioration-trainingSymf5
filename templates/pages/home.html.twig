@@ -12,28 +12,10 @@
 			Nos offres les plus récentes:</h2>
 		<div class="row flex">
 			{% for property in properties %}
-				<div class="col-3">
-					<div class="card">
-
-						<a href="{{ path('property.show', {slug: property.slug, id: property.id}) }}" style="text-decoration:none">
-							{% if property.images is empty %}
-								<img src="{{ asset('/uploads/empty.jpg') | imagine_filter('thumb') }}" class="card-img-top" style="width: 100%; height: auto">
-							{% else %}
-								{% set photo_bien = property.images|first %}
-								<img src="{{ asset('/uploads/' ~ photo_bien.name) | imagine_filter('thumb') }} " class="card-img-top" style="width: 100%; height: auto">
-							{% endif %}
-							<div class="card-body">
-								<h5 class="card-title">
-									<a href="{{ path('property.show', {id: property.id, slug: property.slug})}}">{{ property.title }}</a>
-								</h5>
-								<p class="card-text">{{ property.city }}
-									({{ property.postalCode }})</p>
-								<div class="text-primary" style="font-weight: bold; font-size: 2rem;">{{ property.formattedPrice }}
-									€</div>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
+				<div class="col-md-3">
+					{% include 'property/_property.html.twig' %}
+				</div>
+			{% endfor %}
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

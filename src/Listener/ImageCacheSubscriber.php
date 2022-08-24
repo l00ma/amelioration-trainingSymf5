@@ -8,7 +8,8 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 
 class ImageCacheSubscriber implements EventSubscriber
 {
@@ -19,14 +20,14 @@ class ImageCacheSubscriber implements EventSubscriber
     private $cacheManager;
 
     /**
-     * @var UploaderHelper
+     * @var ParameterBagInterface
      */
-    private $uploaderHelper;
+    private $params;
 
-    public function __construct(CacheManager $cacheManager, UploaderHelper $uploaderHelper)
+    public function __construct(CacheManager $cacheManager, ParameterBagInterface $params)
     {
         $this->cacheManager = $cacheManager;
-        $this->uploaderHelper = $uploaderHelper;
+        $this->params = $params;
     }
 
     public function getSubscribedEvents()
@@ -43,7 +44,8 @@ class ImageCacheSubscriber implements EventSubscriber
         if (!$entity instanceof Property) {
             return;
         }
-        $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
+        $images_directory = $this->params->get('images_directory');
+        $this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
@@ -52,8 +54,9 @@ class ImageCacheSubscriber implements EventSubscriber
         if (!$entity instanceof Property) {
             return;
         }
-        if ($entity->getImageFile() instanceof UploadedFile) {
-            $this->cacheManager->remove($this->uploaderHelper->asset($entity, 'imageFile'));
+        if ($entity->getImages()->getName() instanceof UploadedFile) {
+            $images_directory = $this->params->get('images_directory');
+            $this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
         }
     }
 }

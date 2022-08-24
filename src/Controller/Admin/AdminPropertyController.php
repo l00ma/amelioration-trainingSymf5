@@ -83,8 +83,6 @@ class AdminPropertyController extends AbstractController
      */
     public function edit(Property $property, Request $request)
     {
-
-
         $form = $this->createForm(PropertyType::class, $property);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,9 +124,16 @@ class AdminPropertyController extends AbstractController
             $noms = $property->getImages();
             if ($noms) {
                 foreach ($noms as $nom) {
+                    $nom_image = $nom->getName();
                     #on recupere le nom des images et on les efface du disque
-                    if (file_exists($this->getParameter('images_directory') . '/' . $nom->getName())) {
-                        unlink($this->getParameter('images_directory') . '/' . $nom->getName());
+                    if (file_exists($this->getParameter('images_directory') . '/' . $nom_image)) {
+                        unlink($this->getParameter('images_directory') . '/' . $nom_image);
+                    }
+                    if (file_exists($this->getParameter('cache_thumb') . '/' . $nom_image)) {
+                        unlink($this->getParameter('cache_thumb') . '/' . $nom_image);
+                    }
+                    if (file_exists($this->getParameter('cache_fixe') . '/' . $nom_image)) {
+                        unlink($this->getParameter('cache_fixe') . '/' . $nom_image);
                     }
                 }
             }
@@ -147,8 +152,16 @@ class AdminPropertyController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
-            $nom = $image->getName();
-            unlink($this->getParameter('images_directory') . '/' . $nom);
+            $nom_image = $image->getName();
+            if (file_exists($this->getParameter('images_directory') . '/' . $nom_image)) {
+                unlink($this->getParameter('images_directory') . '/' . $nom_image);
+            }
+            if (file_exists($this->getParameter('cache_thumb') . '/' . $nom_image)) {
+                unlink($this->getParameter('cache_thumb') . '/' . $nom_image);
+            }
+            if (file_exists($this->getParameter('cache_fixe') . '/' . $nom_image)) {
+                unlink($this->getParameter('cache_fixe') . '/' . $nom_image);
+            }
             $this->em->remove($image);
             $this->em->flush();
             return new JsonResponse(['success' => 1]);

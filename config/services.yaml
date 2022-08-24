@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     images_directory: '%kernel.project_dir%/public/uploads'
+    cache_thumb: '%kernel.project_dir%/public/media/cache/thumb/uploads'
+    cache_fixe: '%kernel.project_dir%/public/media/cache/fixe/uploads'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -32,7 +34,6 @@ services:
     #    arguments:
     #        $twig: '@twig'
 
-    
     # App\Listener\ImageCacheSubscriber:
     #     tags:
     #     - { name: doctrine.event_subscriber }
