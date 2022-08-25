@@ -7,6 +7,12 @@ use \Symfony\Component\Validator\Constraints as Asserts;
 
 class PropertySearch
 {
+    /**
+     * @var string|null
+     * @Asserts\Regex("/^[0-9]{5}$/")
+     */
+    private $codePostal;
+
 
     /**
      * @var int|null
@@ -128,5 +134,24 @@ class PropertySearch
     public function setOptions(ArrayCollection $options): void
     {
         $this->options = $options;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * @param string|null $codePostal
+     * @return PropertySearch
+     */
+    public function setCodePostal($codePostal): PropertySearch
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
     }
 }

@@ -7,6 +7,9 @@
 			{{form_start(form)}}
 			<div class="row align-items-end">
 				<div class="col-md-2">
+					{{ form_row(form.codePostal)}}
+				</div>
+				<div class="col-md-2">
 					{{ form_row(form.minSurface)}}
 				</div>
 				<div class="col-md-2">
@@ -18,6 +21,8 @@
 				<div class="col-md-2">
 					{{ form_row(form.maxPrice)}}
 				</div>
+			</div>
+			<div class="row mt-2">
 				<div class="col-md-5">
 					{{ form_row(form.options)}}
 				</div>

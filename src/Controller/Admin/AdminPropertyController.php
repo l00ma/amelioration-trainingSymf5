@@ -166,7 +166,7 @@ class AdminPropertyController extends AbstractController
             $this->em->flush();
             return new JsonResponse(['success' => 1]);
         } else {
-            return new JsonResponse(['error' => 'Token invlide'], 400);
+            return new JsonResponse(['error' => 'Token invalide'], 400);
         }
     }
 }

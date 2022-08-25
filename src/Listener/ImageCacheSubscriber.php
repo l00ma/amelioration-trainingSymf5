@@ -45,7 +45,8 @@ class ImageCacheSubscriber implements EventSubscriber
             return;
         }
         $images_directory = $this->params->get('images_directory');
-        $this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
+        dd($images_directory);
+        #$this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
@@ -54,9 +55,11 @@ class ImageCacheSubscriber implements EventSubscriber
         if (!$entity instanceof Property) {
             return;
         }
-        if ($entity->getImages()->getName() instanceof UploadedFile) {
-            $images_directory = $this->params->get('images_directory');
-            $this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
-        }
+        dd($entity);
+        dd($images_directory);
+        // if ($entity->getImages()->getName() instanceof UploadedFile) {
+        //     $images_directory = $this->params->get('images_directory');
+        //     $this->cacheManager->remove($images_directory . '/' . $entity->getImages()->getName());
+        // }
     }
 }

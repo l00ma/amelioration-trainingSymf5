@@ -34,6 +34,16 @@ class PropertyRepository extends ServiceEntityRepository
     {
         $query = $this->findVisibleQuery();
 
+        if ($search->getCodePostal()) {
+            $value = $search->getCodePostal();
+            for ($i = 0; $i <= 3; $i++) {
+                $query = $query
+                    ->andWhere('p.postal_code LIKE :codepostal')
+                    ->setParameter(':codepostal', $value . '%');
+                $value = substr($value, 0, -1);
+            }
+            #$query = $query->orderBy('p.postal_code',  'DESC');
+        }
         if ($search->getMaxPrice()) {
             $query = $query
                 ->andWhere('p.price <= :maxprice')
