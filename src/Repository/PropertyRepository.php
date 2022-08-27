@@ -40,9 +40,13 @@ class PropertyRepository extends ServiceEntityRepository
                 $query = $query
                     ->andWhere('p.postal_code LIKE :codepostal')
                     ->setParameter(':codepostal', $value . '%');
-                $value = substr($value, 0, -1);
+                if (empty($query->getQuery()->getResult())) {
+                    $value = substr($value, 0, -1);
+                } else {
+                    #dd($query->getQuery()->getResult());
+                    break;
+                }
             }
-            #$query = $query->orderBy('p.postal_code',  'DESC');
         }
         if ($search->getMaxPrice()) {
             $query = $query
@@ -73,7 +77,6 @@ class PropertyRepository extends ServiceEntityRepository
                     ->setParameter("spec$k", $spec);
             }
         }
-
         return $query->getQuery();
     }
 
