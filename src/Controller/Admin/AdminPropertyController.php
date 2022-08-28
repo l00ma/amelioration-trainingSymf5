@@ -67,7 +67,7 @@ class AdminPropertyController extends AbstractController
             $this->em->persist($property);
             $this->em->flush();
             $this->addFlash('success', 'Bien crée avec succès');
-            return $this->redirectToRoute('admin.property.index');
+            return $this->redirectToRoute('property.index');
         }
         return $this->render('admin/property/new.html.twig', [
             'property' => $property,
@@ -101,7 +101,7 @@ class AdminPropertyController extends AbstractController
 
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
-            return $this->redirectToRoute('admin.property.index');
+            return $this->redirectToRoute('property.index');
         }
 
 
@@ -142,7 +142,7 @@ class AdminPropertyController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Bien supprimé avec succès');
         }
-        return $this->redirectToRoute('admin.property.index');
+        return $this->redirectToRoute('property.index');
     }
 
     /**

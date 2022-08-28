@@ -10,9 +10,18 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PropertySearchType extends AbstractType
 {
+
+    private $token;
+
+    public function __construct(TokenStorageInterface $token)
+    {
+        $this->token = $token;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -58,6 +67,16 @@ class PropertySearchType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true
             ]);
+        // si on est un utlisateur connecté, on a un token et on affiche un champ supplémentaire pour chercher une annonce par son id
+        if (!empty($this->token->getToken())) {
+            $builder->add('nbid', IntegerType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => '#'
+                ]
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

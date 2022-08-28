@@ -77,6 +77,11 @@ class PropertyRepository extends ServiceEntityRepository
                     ->setParameter("spec$k", $spec);
             }
         }
+        if ($search->getNbid()) {
+            $query = $query
+                ->andWhere('p.id = :nbid')
+                ->setParameter('nbid', $search->getNbId());
+        }
         return $query->getQuery();
     }
 

@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Repository\AdminRepository;
-//use App\Form\AdminType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

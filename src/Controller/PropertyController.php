@@ -19,13 +19,11 @@ class PropertyController extends AbstractController
 	/**
 	 * @var PropertyRepository
 	 */
-
 	private $repository;
 
 	/**
 	 * @var EntityManagerInterface
 	 */
-
 	private $em;
 
 

@@ -12,9 +12,15 @@
 			</h5>
 			<h6 class="card-subtitle mb-2">{{ property.city }}
 				({{ property.postalCode }})</h6>
-			{% if app.user %}
+			{% if is_granted('ROLE_ADMIN') %}
+				{# Bouton Editer un bien#}
 				<a href="{{ path('admin.property.edit', {id: property.id}) }}" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Editer #
 					{{ property.id }}</a>
+				{# Bouton Supprimer un bien#}
+				<form method="post" action="{{ path('admin.property.delete', {id: property.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}">
+					<button class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Supprimer</button>
+				</form>
 			{% endif %}
 			<p class="card-text">{{property.surface}}m²</p>
 			<div class="text-primary" style="font-size:2rem; font-weight: bold;">

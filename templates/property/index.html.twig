@@ -2,6 +2,13 @@
 {% block title 'Tous nos biens' %}
 
 {% block body%}
+	<div class="container mt-4">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
 	<div class="bg-light p-5 rounded-lg m-3">
 		<div class="container">
 			{{form_start(form)}}
@@ -21,12 +28,17 @@
 				<div class="col-md-2">
 					{{ form_row(form.maxPrice)}}
 				</div>
+				{% if is_granted('ROLE_ADMIN') %}
+
+					{{ include('admin/property/_id.html.twig')}}
+				{% endif %}
 			</div>
-			<div class="row mt-2">
+			<div class="row mt-2 align-items-end">
+				<div class="col-md-1">Options:
+				</div>
 				<div class="col-md-5">
 					{{ form_row(form.options)}}
 				</div>
-
 			</div>
 			<div class="row mt-2">
 				<div class="col-md-2">

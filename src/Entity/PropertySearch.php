@@ -9,10 +9,15 @@ class PropertySearch
 {
     /**
      * @var string|null
-     * @Asserts\Regex("/^[0-9]{5}$/")
+     * @Asserts\Regex(pattern="/^[0-9]{5}$/", message="Code postal erroné")
      */
     private $codePostal;
 
+    /**
+     * @var int
+     * @Asserts\Range(min=1) 
+     */
+    private $nbid;
 
     /**
      * @var int|null
@@ -151,6 +156,25 @@ class PropertySearch
     public function setCodePostal($codePostal): PropertySearch
     {
         $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNbid()
+    {
+        return $this->nbid;
+    }
+
+    /**
+     * @param int|null $nbid
+     * @return PropertySearch
+     */
+    public function setNbid($nbid): PropertySearch
+    {
+        $this->nbid = $nbid;
 
         return $this;
     }

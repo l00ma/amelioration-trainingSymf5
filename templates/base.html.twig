@@ -22,22 +22,24 @@
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{{ path ('home') }}">Mon Agence</a>
+				<a class="navbar-brand" href="{{ path ('home') }}">Acceuil</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %}" href="{{ path ('property.index') }}">Acheter</a>
+							<a class="nav-link {% if current_menu is defined and current_menu == 'properties' %} active {% endif %}" href="{{ path ('property.index') }}">Tous nos biens</a>
 						</li>
 					</ul>
 				</div>
-				{% if app.user %}
+				{% if is_granted('ROLE_ADMIN') %}
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
 						<li class="nav-item">
-							<a class="nav-link active" href="{{ path ('admin.property.index') }}">Gérer les biens</a>
+							<a href="{{ path('admin.property.new') }}" class="btn btn-info" style="display: inline-block --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Créer un nouveau bien</a>
 						</li>
+
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ path ('admin.spec.index') }}">Gérer les options</a>
 						</li>
