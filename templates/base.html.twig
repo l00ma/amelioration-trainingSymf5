@@ -35,11 +35,6 @@
 				</div>
 				{% if is_granted('ROLE_ADMIN') %}
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-						<li class="nav-item">
-							<a href="{{ path('admin.property.new') }}" class="btn btn-info" style="display: inline-block --bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Créer un nouveau bien</a>
-						</li>
-
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ path ('admin.spec.index') }}">Gérer les options</a>
 						</li>

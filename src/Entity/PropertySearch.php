@@ -20,6 +20,11 @@ class PropertySearch
     private $nbid;
 
     /**
+     * @var bool
+     */
+    private $isSold;
+
+    /**
      * @var int|null
      * @Asserts\Range(min=1000) 
      */
@@ -175,6 +180,25 @@ class PropertySearch
     public function setNbid($nbid): PropertySearch
     {
         $this->nbid = $nbid;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsSold()
+    {
+        return $this->isSold;
+    }
+
+    /**
+     * @param bool $isSold
+     * @return PropertySearch
+     */
+    public function setIsSold($isSold): PropertySearch
+    {
+        $this->isSold = $isSold;
 
         return $this;
     }

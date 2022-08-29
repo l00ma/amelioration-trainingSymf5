@@ -82,6 +82,11 @@ class PropertyRepository extends ServiceEntityRepository
                 ->andWhere('p.id = :nbid')
                 ->setParameter('nbid', $search->getNbId());
         }
+        if ($search->getIsSold()) {
+            $query = $this->findInvisibleQuery()
+                ->andWhere('p.sold = :issold')
+                ->setParameter('issold', $search->getIsSold());
+        }
         return $query->getQuery();
     }
 
@@ -119,6 +124,12 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('p.sold = false');
+    }
+
+    private function findInvisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.sold = true');
     }
 
     //    /**

@@ -11,6 +11,7 @@
 	</div>
 	<div class="bg-light p-5 rounded-lg m-3">
 		<div class="container">
+
 			{{form_start(form)}}
 			<div class="row align-items-end">
 				<div class="col-md-2">
@@ -22,16 +23,19 @@
 				<div class="col-md-2">
 					{{ form_row(form.maxSurface)}}
 				</div>
+				{% if is_granted('ROLE_ADMIN') %}
+
+					{{ include('admin/property/_id.html.twig')}}
+				{% endif %}
+			</div>
+			<div class="row mt-2 align-items-end">
 				<div class="col-md-1">
 					{{ form_row(form.nbrRooms)}}
 				</div>
 				<div class="col-md-2">
 					{{ form_row(form.maxPrice)}}
 				</div>
-				{% if is_granted('ROLE_ADMIN') %}
 
-					{{ include('admin/property/_id.html.twig')}}
-				{% endif %}
 			</div>
 			<div class="row mt-2 align-items-end">
 				<div class="col-md-1">Options:
@@ -62,6 +66,7 @@
 				</div>
 			</div>
 			{{form_end(form)}}
+
 		</div>
 	</div>
 	<div class="container mt-4">
